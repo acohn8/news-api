@@ -1,8 +1,20 @@
 import axios from 'axios';
+import cors from 'cors';
 import express from 'express';
 
 const router = express.Router();
 const apiKey = process.env.NEWS_API_KEY;
+
+// const whitelist = ['http://localhost:3001'];
+// const corsOptions = {
+//   origin: function(origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   }
+// };
 
 router.get('/top', async (req, res) => {
   try {
@@ -38,7 +50,6 @@ router.get('/sources', async (req, res) => {
 
 router.get('/sources/:source', async (req, res) => {
   try {
-    console.log(req.params);
     const source = req.params.source;
     const newsResponse = await axios.get(
       `https://newsapi.org/v2/top-headlines?sources=${source}&apiKey=${apiKey}`
