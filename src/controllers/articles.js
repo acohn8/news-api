@@ -65,4 +65,22 @@ router.get('/sources/:source', async (req, res) => {
   }
 });
 
+router.get('/parse/*', async (req, res) => {
+  try {
+    const url = req.params['0'];
+    const response = await axios.get(
+      `https://mercury.postlight.com/parser?url=${url}`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': 'uwzCBiEPRgKEV4LIpOSkjfX05Rt9pweJ0ob4ZFVp'
+        }
+      }
+    );
+    res.send({ response: response.data });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 export { router as articleRoute };
